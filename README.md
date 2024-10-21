@@ -1,2 +1,2 @@
 # The-First-One
-repo was created :)
+repo is created :)
