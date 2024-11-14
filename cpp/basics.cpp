@@ -2,8 +2,6 @@
 using namespace std;
 int info (int a,int b); //prototype (needed only if function is written below the main)
 int main()
-
-
 {
     cout << "Hello wolrd \n";
     string str;
