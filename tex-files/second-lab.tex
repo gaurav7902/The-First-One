@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+
+\title{An Overview of Finding Maxima and Minima of Functions}
+\author{Gaurav Patidar}
+\date{November 1, 2024}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+\section{Introduction}
+\label{sec:1}
+Understanding how to find the \textbf{maxima} and \textbf{minima} of functions is a key concept in \textit{calculus}. It helps in identifying the highest or lowest points on a graph, which can have various applications in \underline{physics, economics, and optimization problems}.
+\newpage
+\section{Mathematical Formulation}
+To find the maxima or minima of a function f(x), we start by finding its \underline{first derivative}:
+\begin{equation}
+f'(x) = \text{Derivative of } f(x).
+\end{equation}
+
+Next, we find the critical points by solving:
+\begin{equation}
+f'(x) = 0.
+\end{equation}
+
+The second derivative test is used to determine whether a critical point is a maximum or minimum:
+\begin{itemize}
+    \item If \( f''(x) > 0 \) , then it is a minimum.
+    \item If \( f''(x) < 0 \), then it is a maximum.
+\end{itemize}
+\newpage
+\section{Example: Finding the Maxima and Minima of a Quadratic Function}
+Consider the function \(f(x) = -x^2 + 4x - 3\). We first calculate the derivative and find the critical points.
+
+The \underline{first derivative}\textbf{} is:
+\begin{equation}
+f'(x) = -2x + 4.
+\end{equation}
+
+Solving for \(f'(x) = 0\):
+\begin{equation}
+-2x + 4 = 0 \Rightarrow x = 2.
+\end{equation}
+
+The second derivative is:
+\begin{equation}
+f''(x) = -2.
+\end{equation}
+
+Since \(f''(2) < 0\), \(x = 2\) is a maximum point.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{maxima-minima.png}
+    \caption{Graph showing the maxima of the function \(f(x) = -x^2 + 4*x - 3\).}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \(x\) & \(f(x)\) \\
+        \hline
+        1 & 0 \\
+        2 & 1 \\
+        3 & 0 \\
+        \hline
+    \end{tabular}
+    \caption{Values of \(f(x)\) at different points}
+\end{table}
+
+As we can see in Figure 1 and Table 1, the maximum value occurs at \(x = 2\).
+
+\end{document}
