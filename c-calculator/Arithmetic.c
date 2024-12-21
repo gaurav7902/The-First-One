@@ -1,5 +1,4 @@
 #include "Arithmetic.h"
-
 // Function to add two numbers
 float add(float a, float b) {
     return a + b;
