@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Class Timetable (Day-wise)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .timetable-slot {
+            transition: all 0.3s ease;
+            min-height: 90px;
+            border-left-width: 4px;
+        }
+        .timetable-slot:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .subject-1 { background-color: #E0F2FE; border-left-color: #0EA5E9; } /* C++ */
+        .subject-2 { background-color: #FEE2E2; border-left-color: #EF4444; } /* COA */
+        .subject-3 { background-color: #FEF3C7; border-left-color: #F59E0B; } /* Discrete Maths */
+        .subject-4 { background-color: #D1FAE5; border-left-color: #10B981; } /* ADA */
+        .subject-5 { background-color: #E5E7EB; border-left-color: #6B7280; } /* COA Lab */
+        .subject-6 { background-color: #EDE9FE; border-left-color: #8B5CF6; } /* ADA Lab */
+        .subject-7 { background-color: #FCE7F3; border-left-color: #EC4899; } /* Microeconomics */
+        .lab-slot {
+            grid-row: span 2 / span 2;
+        }
+        #studyPlanModal .prose h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        #studyPlanModal .prose h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 p-4 sm:p-6 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-4">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Weekly Class Schedule</h1>
+            <p class="mt-2 text-lg text-gray-600">B.Tech CSE - 3rd Semester</p>
+        </div>
+
+        <div class="flex justify-center mb-8">
+            <button id="generatePlanBtn" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-transform transform hover:scale-105">
+                ✨ Generate Study Plan
+            </button>
+        </div>
+
+        <!-- Timetable Grid -->
+        <div id="timetable" class="grid grid-cols-1 md:grid-cols-[auto,1fr,1fr,1fr,1fr,1fr] gap-1 text-center font-semibold">
+            <!-- Headers -->
+            <div class="hidden md:block p-3 rounded-lg bg-gray-200">Time</div>
+            <div class="p-3 rounded-lg bg-gray-200">Monday</div>
+            <div class="p-3 rounded-lg bg-gray-200">Tuesday</div>
+            <div class="p-3 rounded-lg bg-gray-200">Wednesday</div>
+            <div class="p-3 rounded-lg bg-gray-200">Thursday</div>
+            <div class="p-3 rounded-lg bg-gray-200">Friday</div>
+
+            <!-- 8:00 - 8:50 -->
+            <div class="hidden md:flex items-center justify-center p-3 rounded-lg bg-gray-100">8:00 - 8:50</div>
+            <div class="md:hidden col-span-full p-2 rounded-lg bg-gray-100">8:00 - 8:50</div>
+            <div></div><div></div><div></div>
+            <div class="timetable-slot subject-7 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Microeconomics (NMSA201)" data-faculty="Mohd. Irfan">
+                <span class="font-bold text-sm">Microeconomics</span><span class="text-xs text-gray-600">Mohd. Irfan</span>
+            </div>
+            <div class="timetable-slot subject-7 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Microeconomics (NMSA201)" data-faculty="Mohd. Irfan">
+                <span class="font-bold text-sm">Microeconomics</span><span class="text-xs text-gray-600">Mohd. Irfan</span>
+            </div>
+
+            <!-- 9:00 - 9:50 -->
+            <div class="hidden md:flex items-center justify-center p-3 rounded-lg bg-gray-100">9:00 - 9:50</div>
+            <div class="md:hidden col-span-full p-2 rounded-lg bg-gray-100">9:00 - 9:50</div>
+            <div class="timetable-slot subject-2 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Comp. Org. & Arch. (NCSC202)" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">Comp. Org. & Arch.</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-4 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Algo. Design & Analysis (NCSC203)" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">Algo. Design & Analysis</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-7 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Microeconomics (NMSA201)" data-faculty="Mohd. Irfan">
+                <span class="font-bold text-sm">Microeconomics</span><span class="text-xs text-gray-600">Mohd. Irfan</span>
+            </div>
+            <div class="timetable-slot subject-2 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Comp. Org. & Arch. (NCSC202)" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">Comp. Org. & Arch.</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-4 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Algo. Design & Analysis (NCSC203)" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">Algo. Design & Analysis</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+
+            <!-- 10:00 - 10:50 -->
+            <div class="hidden md:flex items-center justify-center p-3 rounded-lg bg-gray-100">10:00 - 10:50</div>
+            <div class="md:hidden col-span-full p-2 rounded-lg bg-gray-100">10:00 - 10:50</div>
+            <div class="timetable-slot subject-3 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Discrete Mathematics (NCSC201)" data-faculty="Rahul Gangopadhyay">
+                <span class="font-bold text-sm">Discrete Mathematics</span><span class="text-xs text-gray-600">Rahul Gangopadhyay</span>
+            </div>
+            <div class="timetable-slot subject-3 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Discrete Mathematics (NCSC201)" data-faculty="Rahul Gangopadhyay">
+                <span class="font-bold text-sm">Discrete Mathematics</span><span class="text-xs text-gray-600">Rahul Gangopadhyay</span>
+            </div>
+            <div class="timetable-slot subject-2 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Comp. Org. & Arch. (NCSC202)" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">Comp. Org. & Arch.</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-4 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Algo. Design & Analysis (NCSC203)" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">Algo. Design & Analysis</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-3 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Discrete Mathematics (NCSC201)" data-faculty="Rahul Gangopadhyay">
+                <span class="font-bold text-sm">Discrete Mathematics</span><span class="text-xs text-gray-600">Rahul Gangopadhyay</span>
+            </div>
+
+            <!-- 11:00 - 11:50 -->
+            <div class="hidden md:flex items-center justify-center p-3 rounded-lg bg-gray-100">11:00 - 11:50</div>
+            <div class="md:hidden col-span-full p-2 rounded-lg bg-gray-100">11:00 - 11:50</div>
+            <div class="timetable-slot subject-4 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Algo. Design & Analysis (NCSC203) - Tutorial" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">ADA (Tutorial)</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-2 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Comp. Org. & Arch. (NCSC202) - Tutorial" data-faculty="Chiranjeev Kumar">
+                <span class="font-bold text-sm">COA (Tutorial)</span><span class="text-xs text-gray-600">Chiranjeev Kumar</span>
+            </div>
+            <div class="timetable-slot subject-3 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Discrete Mathematics (NCSC201) - Tutorial" data-faculty="Rahul Gangopadhyay">
+                <span class="font-bold text-sm">Discrete Maths (Tutorial)</span><span class="text-xs text-gray-600">Rahul Gangopadhyay</span>
+            </div>
+            <div></div><div></div>
+
+            <!-- 12:00 - 12:50 -->
+            <div class="hidden md:flex items-center justify-center p-3 rounded-lg bg-gray-100">12:00 - 12:50</div>
+            <div class="md:hidden col-span-full p-2 rounded-lg bg-gray-100">12:00 - 12:50</div>
+            <div class="timetable-slot subject-1 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Prog. with C++ (NCSE201)" data-faculty="Subhrangsu Mandal">
+                <span class="font-bold text-sm">Prog. with C++</span><span class="text-xs text-gray-600">Subhrangsu Mandal</span>
+            </div>
+            <div class="timetable-slot subject-1 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Prog. with C++ (NCSE201)" data-faculty="Subhrangsu Mandal">
+                <span class="font-bold text-sm">Prog. with C++</span><span class="text-xs text-gray-600">Subhrangsu Mandal</span>
+            </div>
+            <div class="timetable-slot subject-1 p-3 rounded-lg flex flex-col justify-center text-left" data-subject="Prog. with C++ (NCSE201)" data-faculty="Subhrangsu Mandal">
+                <span class="font-bold text-sm">Prog. with C++</span><span class="text-xs text-gray-600">Subhrangsu Mandal</span>
+            </div>
+            <div></div><div></div>
+
+            <!-- 4:00 - 5:50 -->
+            <div class="hidden md:flex items-center justify-center p-3 rounded-lg bg-gray-100 row-span-2">4:00 - 5:50</div>
+            <div class="md:hidden col-span-full p-2 rounded-lg bg-gray-100">4:00 - 5:50</div>
+            <div class="timetable-slot subject-5 p-3 rounded-lg flex flex-col justify-center text-left lab-slot" data-subject="COA Lab (NCSC204)" data-faculty="Saurabh, Tanusree, Tarachand">
+                <span class="font-bold text-sm">COA Lab</span><span class="text-xs text-gray-600">Saurabh, Tanusree, Tarachand</span>
+            </div>
+            <div class="timetable-slot subject-5 p-3 rounded-lg flex flex-col justify-center text-left lab-slot" data-subject="COA Lab (NCSC204)" data-faculty="Saurabh, Tanusree, Tarachand">
+                <span class="font-bold text-sm">COA Lab</span><span class="text-xs text-gray-600">Saurabh, Tanusree, Tarachand</span>
+            </div>
+            <div></div>
+            <div class="timetable-slot subject-6 p-3 rounded-lg flex flex-col justify-center text-left lab-slot" data-subject="ADA Lab (NCSC205)" data-faculty="Ayan Das, Soumen Bag">
+                <span class="font-bold text-sm">ADA Lab</span><span class="text-xs text-gray-600">Ayan Das, Soumen Bag</span>
+            </div>
+            <div class="timetable-slot subject-5 p-3 rounded-lg flex flex-col justify-center text-left lab-slot" data-subject="COA Lab (NCSC204)" data-faculty="Saurabh, Tanusree, Tarachand">
+                <span class="font-bold text-sm">COA Lab</span><span class="text-xs text-gray-600">Saurabh, Tanusree, Tarachand</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Study Plan Modal -->
+    <div id="studyPlanModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-800">✨ Your Personalized Study Plan</h2>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="modalContent" class="p-6 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script>
+        const generatePlanBtn = document.getElementById('generatePlanBtn');
+        const studyPlanModal = document.getElementById('studyPlanModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalContent = document.getElementById('modalContent');
+
+        generatePlanBtn.addEventListener('click', generateStudyPlan);
+        closeModalBtn.addEventListener('click', () => {
+            studyPlanModal.classList.add('hidden');
+            studyPlanModal.classList.remove('flex');
+        });
+
+        async function generateStudyPlan() {
+            modalContent.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-64">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-500"></div>
+                    <p class="mt-4 text-lg text-gray-600">Generating your personalized plan with Gemini...</p>
+                </div>`;
+            studyPlanModal.classList.remove('hidden');
+            studyPlanModal.classList.add('flex');
+
+            const timetableEl = document.getElementById('timetable');
+            const dayHeaders = Array.from(timetableEl.querySelectorAll('.grid-cols-1.md\\:grid-cols-\\[auto\\,1fr\\,1fr\\,1fr\\,1fr\\,1fr\\] > div:not(.hidden)'));
+            const timeHeaders = Array.from(timetableEl.querySelectorAll('.hidden.md\\:flex'));
+            
+            let scheduleText = 'Here is the student schedule:\n\n';
+            const scheduleByDay = { Monday: [], Tuesday: [], Wednesday: [], Thursday: [], Friday: [] };
+
+            const slots = timetableEl.querySelectorAll('.timetable-slot');
+            slots.forEach(slot => {
+                const colIndex = Array.from(slot.parentNode.children).indexOf(slot);
+                const day = dayHeaders[colIndex]?.textContent || 'Unknown';
+
+                let time = 'Unknown';
+                const parentRow = slot.closest('.grid > div:not(.hidden.md\\:flex)').parentNode;
+                const rowIndex = Array.from(parentRow.children).filter(el => el.querySelector('.hidden.md\\:flex')).indexOf(slot.parentNode);
+                
+                // This is a simplified way to get the time. A more robust way would be needed for complex layouts.
+                const timeRow = slot.parentElement;
+                const timeHeader = timeRow.querySelector('.hidden.md\\:flex');
+                if(timeHeader) time = timeHeader.textContent;
+                else { // Fallback for grid structure
+                    const allRows = Array.from(timetableEl.children).filter(c => c.children.length > 1);
+                    const slotRowIndex = allRows.indexOf(slot.parentElement);
+                    if(allRows[slotRowIndex]) {
+                        const timeEl = allRows[slotRowIndex].querySelector('.hidden.md\\:flex');
+                        if(timeEl) time = timeEl.textContent;
+                    }
+                }
+                
+                const subject = slot.dataset.subject || 'N/A';
+                if(scheduleByDay[day]) {
+                    scheduleByDay[day].push(`${time.trim()}: ${subject}`);
+                }
+            });
+
+            for (const day in scheduleByDay) {
+                scheduleText += `${day}:\n`;
+                if(scheduleByDay[day].length > 0) {
+                    scheduleByDay[day].forEach(item => scheduleText += `- ${item}\n`);
+                } else {
+                    scheduleText += `- No classes\n`;
+                }
+                scheduleText += '\n';
+            }
+
+
+            const prompt = `
+                You are an expert academic advisor for a B.Tech Computer Science student.
+                Based on the following class schedule, create a personalized, actionable, and encouraging weekly study plan.
+
+                The student's schedule is:
+                ${scheduleText}
+
+                The plan should be structured with Markdown for easy reading. Include the following sections:
+                
+                ## 🚀 General Strategy
+                Provide 2-3 high-level tips for managing this semester's workload effectively. Mention the importance of consistency.
+
+                ## 🗓️ Daily Breakdown
+                For each day (Monday to Friday), suggest specific study blocks. Be realistic about time. For example, after a long day of classes, suggest a lighter review session. Recommend short breaks.
+                - **Monday:**
+                - **Tuesday:**
+                - **Wednesday:**
+                - **Thursday:**
+                - **Friday:**
+
+                ## 📚 Subject-Specific Tips
+                Give one key piece of advice for each subject based on the schedule.
+
+                ## 週末 Weekend Plan
+                Suggest a light plan for the weekend that includes both review and relaxation to avoid burnout.
+
+                Make the tone encouraging and motivating. Use emojis to make it engaging.
+            `;
+
+            try {
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error(`API call failed with status: ${response.status}`);
+                const result = await response.json();
+                
+                if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    const generatedText = result.candidates[0].content.parts[0].text;
+                    modalContent.innerHTML = `<div class="prose max-w-none p-2">${marked.parse(generatedText)}</div>`;
+                } else {
+                    throw new Error("Invalid response structure from API.");
+                }
+
+            } catch (error) {
+                console.error("Error generating study plan:", error);
+                modalContent.innerHTML = `
+                    <div class="text-center p-8 bg-red-50 rounded-lg">
+                        <h3 class="text-xl font-bold text-red-700">Oops! Something went wrong.</h3>
+                        <p class="mt-2 text-red-600">Could not generate the study plan. Please try again later.</p>
+                        <p class="mt-2 text-xs text-gray-500">${error.message}</p>
+                    </div>`;
+            }
+        }
+    </script>
+</body>
+</html>
+
